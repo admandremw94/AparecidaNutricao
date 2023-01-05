@@ -14,15 +14,17 @@ for (var i = 0; i < pacientes.length; i++) { //Estrutura de repetição para ana
 	var tdImc = paciente.querySelector(".info-imc"); // Seleciona o local onde será alterado o valor.
 
 
-	var pesoEhValido = true;
-	if (peso <= 0 || peso >= 400) { //Validação de peso. 
+	var pesoEhValido = validaPeso(peso);
+	var alturaEhValida = validaAltura(altura);
+
+	if (!pesoEhValido) { //Se o peso não é válido
 		pesoEhValido = false;
 		tdImc.textContent = ("Peso invalido");
 		paciente.classList.add("paciente-invalido"); //Adiciona uma classe a linha paciente
 		}
 
-	var alturaEhValida = true;
-	if (altura <= 0 || altura >= 3.00) { //Validação da altura.
+	
+	if (!alturaEhValida) { //Validação da altura.
 		alturaEhValida = false;
 		tdImc.textContent =("Altura invalida");
 		paciente.classList.add("paciente-invalido");
@@ -32,6 +34,22 @@ for (var i = 0; i < pacientes.length; i++) { //Estrutura de repetição para ana
 	if (alturaEhValida && pesoEhValido) { //Se a altura e o peso forem verdadeiros execute esse codigo.
 		var imc = calculaImc(peso,altura) //Calculo do IMC.
 		tdImc.textContent = imc; //Altera o valor para o calculado. 
+	}
+
+	function validaPeso(peso){ //Validação de peso. 
+		if(peso >= 0 && peso < 400) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+
+		function validaAltura(altura){ //Validação de peso. 
+		if(altura >= 0 && altura < 3.0) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 
 	function calculaImc(peso,altura) { // Função criada para calcular o IMC
